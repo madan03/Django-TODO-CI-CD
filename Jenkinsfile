@@ -119,17 +119,18 @@ pipeline{
                         
                         BUILD_NUMBER="${BUILD_NUMBER}"
 
-                        CURRENT_IMAGE_VERSION=$(grep -oE 'sushank3/ci_cd-portfolio:v[0-9]+' deployment.yaml | cut -d':' -f2)
-                        sed -i "s/${CURRENT_IMAGE_VERSION}/v${BUILD_NUMBER}/g" deployment.yaml
-                        git add deployment.yaml
+                        sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" k8s/deployment.yml
+                        
+                        git add k8s/deployment.yaml
                         
                         git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                         
-                        git push "https://oauth2:${GITLAB_TOKEN}@gitlab.com/${GITLAB_USERNAME}/${GITLAB_PROJECT_NAME}" HEAD:main
-
+                        git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:master
 
                     '''
+                    // for GITLAB:->
 
+                   //git push "https://oauth2:${GITLAB_TOKEN}@gitlab.com/${GITLAB_USERNAME}/${GITLAB_PROJECT_NAME}" HEAD:main
                 }
 
                 script {
