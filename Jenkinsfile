@@ -35,7 +35,7 @@ pipeline{
             }
                 
         }
-/*
+
         stage("Static Code Analysis"){
 
             environment {
@@ -75,7 +75,7 @@ pipeline{
                 }
             }
         }
-*/
+
         stage("Build docker file and push"){
 
             environment {
